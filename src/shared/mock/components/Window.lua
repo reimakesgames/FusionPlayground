@@ -9,15 +9,25 @@ local Children = Fusion.Children
 
 return function(props: {[string]: any})
 	return New "ScreenGui" {
-		Name = props.Name,
-		DisplayOrder = props.DisplayOrder,
-		ZIndexBehavior = props.ZIndexBehavior,
+		Name = props.Name;
+		DisplayOrder = props.DisplayOrder;
+		ZIndexBehavior = props.ZIndexBehavior;
 
-		IgnoreGuiInset = true,
-		ResetOnSpawn = false,
+		IgnoreGuiInset = true;
+		ResetOnSpawn = false;
 
-		Parent = PlayerGui,
+		Parent = PlayerGui;
 
-		[Children] = props.Children
+		[Children] = {
+			New "Frame" {
+				Name = "Background";
+				BackgroundColor3 = props.WindowColor or Color3.fromRGB(255, 255, 255);
+				BorderSizePixel = 0;
+				Size = UDim2.new(1, 0, 1, 0);
+				ZIndex = -1;
+
+				[Children] = props[Children];
+			};
+		};
 	}
 end
